@@ -1,0 +1,289 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+}
+
+/* Layout */
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    width: 350px;
+    background: #f9f9f9;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Welcome Overlay */
+#welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85); /* Slightly transparent dark background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    transition: opacity 0.5s ease-out;
+}
+
+.welcome-content h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.welcome-content p {
+    font-size: 18px;
+    color: #ddd;
+    animation: pulse 2s infinite;
+}
+
+/* Add a simple animation for the text */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+#map {
+    flex-grow: 1;
+    height: 100vh;
+}
+
+/* Sidebar Styles */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.mode-switch {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.mode-switch button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #e0e0e0;
+    color: #666;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.mode-switch button.active {
+    background: #5D9CEC;
+    color: white;
+}
+
+.stats {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #888;
+}
+
+/* Music Player */
+/*
+.music-player {
+    background: #5D9CEC;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.music-info {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    margin-right: 10px;
+}
+
+.music-controls button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.music-controls button:hover {
+    transform: scale(1.1);
+}
+*/
+
+/* Details Panel */
+.details-panel {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-top: 10px;
+}
+
+.details-panel.hidden {
+    display: none;
+}
+
+.travel-list-container {
+    margin-top: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.travel-list-group {
+    margin-bottom: 20px;
+}
+
+.travel-list-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+}
+
+.travel-item {
+    padding: 10px;
+    border-radius: 6px;
+    background: white;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid #eee;
+}
+
+.travel-item:hover {
+    background: #f0f4f8;
+    border-color: #d0e1f5;
+}
+
+.travel-item-name {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+.travel-item-date {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+}
+
+.detail-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background-color: #eee;
+}
+
+#detail-name {
+    margin: 5px 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.date-tag {
+    display: inline-block;
+    background: #eee;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.back-btn {
+    display: inline-block;
+    background: none;
+    border: none;
+    color: #5D9CEC;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+.back-btn:hover {
+    text-decoration: underline;
+}
+
+#detail-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555;
+    white-space: pre-wrap;
+}
+
+/* Map specific styling */
+/* Make map tiles grayscale */
+.leaflet-tile {
+    filter: grayscale(100%) contrast(1.1);
+    -webkit-filter: grayscale(100%) contrast(1.1);
+}
+
+/* Custom Marker */
+.custom-pin-container {
+    background: transparent;
+    border: none;
+}
+
+.custom-pin {
+    width: 30px;
+    height: 30px;
+    /* Removed static background color */
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    box-shadow: -2px 2px 4px rgba(0,0,0,0.3);
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.custom-pin:hover {
+    transform: scale(1.1) rotate(-45deg);
+    /* Removed hover background color to keep original color */
+    filter: brightness(1.1); /* Make it slightly brighter on hover instead */
+    z-index: 1000;
+}
+
+/* Inner circle for the pin just to look nice */
+.custom-pin::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+}
+
+/* An arrow pointing out - could be implemented in JS as a separate layer, 
+   but for now the pin itself points to the location */

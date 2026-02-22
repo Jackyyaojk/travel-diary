@@ -1,0 +1,80 @@
+// 定义照片的基础路径 (使用相对路径以兼容浏览器)
+const basePaths = {
+    // 假设 index.html 在 code/travel-diary/
+    // Inter-Data 在 code/travel-diary/Inter-Data/ --> ./Inter-Data/
+    intl: "./Inter-Data/", 
+    
+    // Dome-Data 在 code/travel-diary/Dome-Data/ --> ./Dome-Data/
+    domestic: "./Dome-Data/"
+};
+
+// 背景音乐列表
+const musicList = [
+    {
+        title: "Autumn Leaves",
+        // 请确保你把 Lost Stars.mp3 放在 music 文件夹里
+        // 或者你可以把这里换成网上的链接
+        url: "music/autumn.mp3"
+    }
+];
+
+const travelData = {
+    "intl": [
+        {
+            "id": 1,
+            "name": "Spain - Barcelona & Madrid & Seville",
+            "date": "2025-10-12 -- 2025-10-24",
+            "desc": "小姚小朱第一次国外蜜月旅行～～.",
+            "lat": 40.4167,
+            "lng": -3.7033,
+            "photo": "2025Spain.jpg"
+        },
+    ],
+    "domestic": [
+        {
+            "id": 1,
+            "name": "China - Shanghai",
+            "date": "2025-08-10 -- 2025-08-11",
+            "desc": "在一起的旅行，上海外滩的大明路上～～～.",
+            "lat": 31.2304,
+            "lng": 121.4737,
+            "photo": "2025Shanghai.jpg"
+        },
+        {
+            "id": 2,
+            "name": "China - Yangzhou",
+            "date": "2025-09-20 -- 2025-09-22",
+            "desc": "猪贱贱和猪宝贝担任起了实验室旅行团的导游职责～～～",
+            "lat": 32.3932,
+            "lng": 119.4085,
+            "photo": "2025Yangzhou.jpg"
+        },
+        {
+            "id": 3,
+            "name": "China - Ningbo",
+            "date": "2025-09-27 -- 2025-09-29",
+            "desc": "参加国家工业软件大会，顺便游览了宁波～～～",
+            "lat": 29.8750,
+            "lng": 121.5497,
+            "photo": "2025Ningbo.jpg"
+        },
+        {
+            "id": 4,
+            "name": "China - Xiamen",
+            "date": "2025-10-29 -- 2025-10-31",
+            "desc": "参加MIND会议，顺便游览了厦门～～～",
+            "lat": 24.4467,
+            "lng": 118.0800,
+            "photo": "2025Xiamen.jpg"
+        },
+        {
+            "id": 5,
+            "name": "China - Nanjing",
+            "date": "2025-11-05 -- 2025-11-07",
+            "desc": "猪贱贱在北京kuku工作，猪宝贝在杭州kuku工作，中间放松一下啦～～～",
+            "lat": 32.0603,
+            "lng": 118.7969,
+            "photo": "2025Nanjing.jpg"
+        },
+    ]
+};

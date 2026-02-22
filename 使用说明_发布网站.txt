@@ -1,0 +1,34 @@
+# 如何将网公开给别人看 (使用 GitHub Pages)
+
+你现在这些文件都在你自己电脑上，别人想看是看不了的。你需要把它们“上传”到一个免费的服务器上。GitHub Pages 是最好的选择。
+
+## 第一步：准备文件
+1. 确保你的文件夹里有这些东西：
+   - index.html
+   - style.css
+   - script.js
+   - data.js
+   - Inter-Data (文件夹)
+   - Dome-Data (文件夹)
+   - music (文件夹，里面放了 Lost Stars.mp3)
+
+## 第二步：上传到 GitHub
+1. 打开浏览器，去 [github.com](https://github.com) 注册一个账号（如果没有的话）。
+2. 登录后，点右上角的 `+` 号，选择 **New repository** (新建仓库)。
+3. 在 "Repository name" 里起个名字，比如 `our-travel-diary`。
+4. 确保选了 **Public** (公开)，然后点 **Create repository**。
+5. 看到新页面后，找到 **"uploading an existing file"** (上传现有文件) 的链接。
+6. 把你 `travel-diary` 文件夹里的**所有文件**直接拖进去。
+7. 等待上传完成，然后在底下 "Commit changes" (提交更改) 那里点绿色的按钮。
+
+## 第三步：开启网页功能
+1. 在你的仓库页面，点上方的 **Settings** (设置)。
+2. 在左边菜单里找到 **Pages** (或者 GitHub Pages)。
+3. 在 "Branch" (分支) 那里，把 `None` 改成 `main` (或者是 `master`)，文件夹选 `/(root)`。
+4. 点 **Save** (保存)。
+
+## 获得网址！
+过1-2分钟，刷新这个 Pages 页面，顶上会变成绿色，给你一个链接，比如：
+`https://your-name.github.io/our-travel-diary/`
+
+把这个链接发给宝宝，她就可以在手机或电脑上看到啦！🎉

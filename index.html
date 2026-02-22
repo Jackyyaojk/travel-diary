@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猪贱贱 & 猪宝贝 探索世界</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for arrow icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Welcome Overlay for Autoplay -->
+    <div id="welcome-overlay">
+        <div class="welcome-content">
+            <h1>猪贱贱 & 猪宝贝 的旅行日记</h1>
+            <p>点击任意处开启旅程 ✈️</p>
+        </div>
+    </div>
+
+    <!-- Hidden Audio Element -->
+    <audio id="bg-music" hidden></audio>
+
+    <div class="sidebar">
+        <h1>猪贱贱 & 猪宝贝 探索世界</h1>
+        <div class="mode-switch">
+            <button id="btn-intl" class="active">国际版</button>
+            <button id="btn-domestic">国内版</button>
+        </div>
+        <div class="stats">
+            <p>已打卡地点: <span id="location-count">0</span></p>
+        </div>
+        
+        <!-- Music Player Removed -->
+
+        <div id="location-details" class="details-panel hidden">
+            <!-- Back button for mobile/easy nav maybe? -->
+            <button class="back-btn" onclick="hideDetails()">← 返回列表</button>
+            <img id="detail-photo" src="" alt="Photo" class="detail-photo">
+            <h2 id="detail-name">地点名称</h2>
+            <p id="detail-date" class="date-tag">2023-01-01</p>
+            <p id="detail-desc">这里是关于这个地点的回忆...</p>
+        </div>
+        <div id="placeholder" class="travel-list-container">
+            <!-- This will be populated by JS -->
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
