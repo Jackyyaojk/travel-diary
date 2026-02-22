@@ -3,11 +3,30 @@ const map = L.map('map').setView([35, 105], 4); // Default center (roughly China
 
 // Add tile layer (using CartoDB Voyager for a clean look, will appear grayscale via CSS)
 // Or CartoDB Positron which is already light/gray
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+const tileLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 	subdomains: 'abcd',
 	maxZoom: 20
 }).addTo(map);
+
+// GeoJSON Layers (for coloring regions)
+let regionLayer = L.geoJSON(null).addTo(map);
+
+// Unified Color Palette (Rainbow)
+const markerColors = [
+        '#FF6B6B', // Red
+        '#4ECDC4', // Teal 
+        '#45B7D1', // Light Blue
+        '#96CEB4', // Greenish
+        '#FFEEAD', // Yellow
+        '#D4A5A5', // Pink
+        '#9B59B6', // Purple
+        '#3498DB', // Blue
+        '#E67E22', // Orange
+        '#2ECC71', // Green
+        '#F1C40F', // Yellow
+        '#E74C3C'  // Red
+];
 
 // State
 let currentMode = 'intl'; // 'intl' or 'domestic'
@@ -37,7 +56,96 @@ function setMode(mode) {
         map.setView([35, 105], 4); 
     }
 
-    renderMarkers();
+    renderMarkers();    loadAndRenderRegions(mode);
+}
+
+// Global cached GeoJSON data to avoid re-fetching
+let cachedGeoData = {
+    world: null,
+    china: null
+};
+
+function loadAndRenderRegions(mode) {
+    if (regionLayer) map.removeLayer(regionLayer);
+    
+    // Using reliable sources for GeoJSON with valid CORS headers
+    // World countries
+    const worldUrl = 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json';
+    // China cities (prefecture level) from Aliyun DataV which is very reliable and up-to-date
+    // 100000_full.json includes polygon for all sub-regions (provinces/cities directly below country)
+    // Actually 100000_full.json gives provinces. For cities we need something else or a big json.
+    // Let's stick to provinces for simplicity BUT enable better matching first.
+    // Wait, user asked for "Domestic by city unit". If they go to Suzhou, they want Suzhou.
+    // Aliyun: https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full (This is provinces).
+    // Getting all cities is heavy.
+    // Let's improve the province matching first, as Beijing/Shanghai ARE provinces in mapping.
+    // And try to perform fuzzy matching.
+    const chinaUrl = 'https://raw.githubusercontent.com/yezongyang/china-geojson/master/china-provinces.json';
+
+    const url = (mode === 'intl') ? worldUrl : chinaUrl;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            regionLayer = L.geoJSON(data, {
+                style: function(feature) {
+                    let isVisited = false;
+                    let visitedColor = '#FF9F43'; // default fallback
+
+                    const props = feature.properties;
+                    // Common name property keys
+                    const geoNames = [props.name, props.NAME, props.Name, props.chn_name];
+
+                    if (typeof travelData !== 'undefined' && travelData[mode]) {
+                        const currentList = travelData[mode];
+                        
+                        // Check if any trip matches this region
+                        for (let i = 0; i < currentList.length; i++) {
+                            const trip = currentList[i];
+                            let match = false;
+
+                            // Check via configured mapping (best)
+                            if (typeof regionMapping !== 'undefined' && regionMapping[mode] && regionMapping[mode][trip.name]) {
+                                const targets = regionMapping[mode][trip.name];
+                                // Improved fuzzy matching: Check if geoName contains target OR target contains geoName
+                                // "北京市" contains "北京" -> Match!
+                                if (geoNames.some(n => n && targets.some(t => n.includes(t) || t.includes(n)))) {
+                                    match = true;
+                                }
+                            }
+                            
+                            // Heuristic: check if trip name contains geo name (e.g. "Spain" in "Spain - Madrid")
+                            // Only safely do this for International mode where names are English
+                            if (!match && mode === 'intl') {
+                                if (geoNames.some(n => n && trip.name.includes(n))) {
+                                    match = true;
+                                }
+                            }
+
+                            if (match) {
+                                isVisited = true;
+                                // Use the same color as the marker (index based)
+                                visitedColor = markerColors[i % markerColors.length];
+                                break;
+                            }
+                        }
+                    }
+
+                    return {
+                        fillColor: isVisited ? visitedColor : 'transparent', 
+                        weight: isVisited ? 1 : 0.5,
+                        opacity: 1,
+                        color: isVisited ? 'white' : '#ccc',  // White border if visited, gray otherwise
+                        dashArray: '3',
+                        fillOpacity: isVisited ? 0.6 : 0
+                    };
+                }
+            }).addTo(map);
+            regionLayer.bringToBack();
+        })
+        .catch(err => {
+            console.error("GeoJSON load failed", err);
+        });
 }
 
 // Render Markers
@@ -50,26 +158,10 @@ function renderMarkers() {
     // Render the list of visited places as well
     renderList(data);
 
-    // A nice rainbow palette
-    const colors = [
-        '#FF6B6B', // Red
-        '#4ECDC4', // Teal 
-        '#45B7D1', // Light Blue
-        '#96CEB4', // Greenish
-        '#FFEEAD', // Yellow
-        '#D4A5A5', // Pink
-        '#9B59B6', // Purple
-        '#3498DB', // Blue
-        '#E67E22', // Orange
-        '#2ECC71', // Green
-        '#F1C40F', // Yellow
-        '#E74C3C'  // Red
-    ];
-
     data.forEach((item, index) => {
         // Pick a color based on index to keep it consistent for the same item, or random
         // Using index % colors.length ensures it cycles through colors
-        const color = colors[index % colors.length];
+        const color = markerColors[index % markerColors.length];
 
         // Create custom icon with dynamic color
         const icon = L.divIcon({

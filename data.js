@@ -8,6 +8,35 @@ const basePaths = {
     domestic: "./Dome-Data/"
 };
 
+// **地理边界数据 GeoJSON**
+// 我们使用公共 CDN 提供全球和中国省级边界数据
+// 如果想离线使用，可以将这些 JSON 下载到 geojson 文件夹并修改路径
+const geoJsonUrls = {
+    world: "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json",
+    china: "https://raw.githubusercontent.com/yezongyang/china-geojson/master/china-provinces.json"
+};
+
+// **区域匹配规则**
+// 为了让程序知道 "Spain" 对应地图上的哪个形状，我们需要建立映射
+// 格式: { "数据里的名字": ["地图里的名字1", "地图里的名字2"] }
+const regionMapping = {
+    // 国际版：国家名称映射
+    intl: {
+        "Spain - Barcelona & Madrid & Seville": ["Spain"], 
+        "Japan - Kyoto": ["Japan"],
+        "France - Paris": ["France"]
+    },
+    // 国内版：省份名称映射 (注意: 地图是按省份画的，所以要把城市映射到省份)
+    domestic: {
+        "China - Beijing": ["Beijing", "北京", "北京市"],
+        "China - Shanghai": ["Shanghai", "上海", "上海市"],
+        "China - Yangzhou": ["Jiangsu", "江苏", "江苏省"],
+        "China - Ningbo": ["Zhejiang", "浙江", "浙江省"],
+        "China - Xiamen": ["Fujian", "福建", "福建省"],
+        "China - Nanjing": ["Jiangsu", "江苏", "江苏省"]
+    }
+};
+
 // 背景音乐列表
 const musicList = [
     {
