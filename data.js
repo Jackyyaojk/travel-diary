@@ -13,8 +13,8 @@ const basePaths = {
 // 如果想离线使用，可以将这些 JSON 下载到 geojson 文件夹并修改路径
 const geoJsonUrls = {
     world: "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json",
-    // 使用阿里云 DataV 的数据源，虽然比较大但非常准确
-    china: "https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full"
+    // 使用 GitHub 托管的中国地图数据源，解决跨域问题(CORS)
+    china: "https://raw.githubusercontent.com/longwosion/geojson-map-china/master/china.json"
 };
 
 // **区域匹配规则**

@@ -71,8 +71,8 @@ function loadAndRenderRegions(mode) {
     // Using reliable sources for GeoJSON with valid CORS headers
     // World countries
     const worldUrl = 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json';
-    // China provinces (Aliyun DataV - reliable source)
-    const chinaUrl = 'https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full';
+    // China provinces (GitHub source - more stable for GitHub Pages due to CORS)
+    const chinaUrl = 'https://raw.githubusercontent.com/longwosion/geojson-map-china/master/china.json';
 
     const url = (mode === 'intl') ? worldUrl : chinaUrl;
 
