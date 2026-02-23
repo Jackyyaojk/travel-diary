@@ -13,7 +13,8 @@ const basePaths = {
 // 如果想离线使用，可以将这些 JSON 下载到 geojson 文件夹并修改路径
 const geoJsonUrls = {
     world: "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json",
-    china: "https://raw.githubusercontent.com/yezongyang/china-geojson/master/china-provinces.json"
+    // 使用阿里云 DataV 的数据源，虽然比较大但非常准确
+    china: "https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full"
 };
 
 // **区域匹配规则**
@@ -33,7 +34,11 @@ const regionMapping = {
         "China - Yangzhou": ["Jiangsu", "江苏", "江苏省"],
         "China - Ningbo": ["Zhejiang", "浙江", "浙江省"],
         "China - Xiamen": ["Fujian", "福建", "福建省"],
-        "China - Nanjing": ["Jiangsu", "江苏", "江苏省"]
+        "China - Nanjing": ["Jiangsu", "江苏", "江苏省"],
+        // 确保特殊地区也能匹配
+        "China - Taiwan": ["Taiwan", "台湾", "台湾省"],
+        "China - Hong Kong": ["Hong Kong", "香港", "香港特别行政区"],
+        "China - Macau": ["Macau", "澳门", "澳门特别行政区"]
     }
 };
 

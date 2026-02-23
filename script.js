@@ -71,16 +71,8 @@ function loadAndRenderRegions(mode) {
     // Using reliable sources for GeoJSON with valid CORS headers
     // World countries
     const worldUrl = 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json';
-    // China cities (prefecture level) from Aliyun DataV which is very reliable and up-to-date
-    // 100000_full.json includes polygon for all sub-regions (provinces/cities directly below country)
-    // Actually 100000_full.json gives provinces. For cities we need something else or a big json.
-    // Let's stick to provinces for simplicity BUT enable better matching first.
-    // Wait, user asked for "Domestic by city unit". If they go to Suzhou, they want Suzhou.
-    // Aliyun: https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full (This is provinces).
-    // Getting all cities is heavy.
-    // Let's improve the province matching first, as Beijing/Shanghai ARE provinces in mapping.
-    // And try to perform fuzzy matching.
-    const chinaUrl = 'https://raw.githubusercontent.com/yezongyang/china-geojson/master/china-provinces.json';
+    // China provinces (Aliyun DataV - reliable source)
+    const chinaUrl = 'https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=100000_full';
 
     const url = (mode === 'intl') ? worldUrl : chinaUrl;
 
