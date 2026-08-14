@@ -12,9 +12,17 @@ const basePaths = {
 // 我们使用公共 CDN 提供全球和中国省级边界数据
 // 如果想离线使用，可以将这些 JSON 下载到 geojson 文件夹并修改路径
 const geoJsonUrls = {
-    world: "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json",
+    world: [
+        "./geojson/world.json",
+        "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json",
+        "https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json"
+    ],
     // 使用 GitHub 托管的中国地图数据源，解决跨域问题(CORS)
-    china: "https://raw.githubusercontent.com/longwosion/geojson-map-china/master/china.json"
+    china: [
+        "./geojson/china.json",
+        "https://raw.githubusercontent.com/longwosion/geojson-map-china/master/china.json",
+        "https://cdn.jsdelivr.net/gh/longwosion/geojson-map-china@master/china.json"
+    ]
 };
 
 // **区域匹配规则**
@@ -25,7 +33,10 @@ const regionMapping = {
     intl: {
         "Spain - Barcelona & Madrid & Seville": ["Spain"], 
         "Japan - Kyoto": ["Japan"],
-        "France - Paris": ["France"]
+        "France - Paris": ["France"],
+        "Australia - Perth": ["Australia"],
+        "Italy - Rome & Sicily & Florence & Milan": ["Italy"],
+        "China - Hong Kong": ["Hong Kong"]
     },
     // 国内版：省份名称映射 (注意: 地图是按省份画的，所以要把城市映射到省份)
     domestic: {
@@ -63,6 +74,33 @@ const travelData = {
             "lng": -3.7033,
             "photo": "2025Spain.jpg"
         },
+        {
+            "id": 2,
+            "name": "Australia - Perth",
+            "date": "2026-5-10 -- 2026-5-16",
+            "desc": "异地五个月后的腻歪～～.",
+            "lat": -31.9505,
+            "lng": 115.8605,
+            "photo": "2026Perth.jpg"
+        },
+        {
+            "id": 3,
+            "name": "China - Hong Kong",
+            "date": "2026-6-27 -- 2026-7-1",
+            "desc": "参加小朱哥哥的结婚登记仪式～～.",
+            "lat": 22.3193,
+            "lng": 114.1694,
+            "photo": "2026Hongkong.jpg"
+        },
+        {
+            "id": 4,
+            "name": "Italy - Rome & Sicily & Florence & Milan",
+            "date": "2026-8-1 -- 2026-8-12",
+            "desc": "小姚小朱第一次国外蜜月旅行～～.",
+            "lat": 41.9028,
+            "lng": 12.4964,
+            "photo": "2026Italy.jpg"
+        }
     ],
     "domestic": [
         {
@@ -109,6 +147,6 @@ const travelData = {
             "lat": 32.0603,
             "lng": 118.7969,
             "photo": "2025Nanjing.jpg"
-        },
+        }
     ]
 };

@@ -29,7 +29,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.85); /* Slightly transparent dark background */
+    background: rgba(0,0,0,0.85);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,7 +53,6 @@ body {
     animation: pulse 2s infinite;
 }
 
-/* Add a simple animation for the text */
 @keyframes pulse {
     0% { transform: scale(1); opacity: 0.8; }
     50% { transform: scale(1.05); opacity: 1; }
@@ -100,44 +99,6 @@ h1 {
     font-size: 14px;
     color: #888;
 }
-
-/* Music Player */
-/*
-.music-player {
-    background: #5D9CEC;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.music-info {
-    font-size: 12px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 150px;
-    margin-right: 10px;
-}
-
-.music-controls button {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 14px;
-    padding: 5px;
-    transition: transform 0.2s;
-}
-
-.music-controls button:hover {
-    transform: scale(1.1);
-}
-*/
 
 /* Details Panel */
 .details-panel {
@@ -246,7 +207,6 @@ h1 {
 }
 
 /* Map specific styling */
-/* Make map tiles grayscale */
 .leaflet-tile {
     filter: grayscale(100%) contrast(1.1);
     -webkit-filter: grayscale(100%) contrast(1.1);
@@ -261,7 +221,6 @@ h1 {
 .custom-pin {
     width: 30px;
     height: 30px;
-    /* Removed static background color */
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);
     box-shadow: -2px 2px 4px rgba(0,0,0,0.3);
@@ -271,12 +230,10 @@ h1 {
 
 .custom-pin:hover {
     transform: scale(1.1) rotate(-45deg);
-    /* Removed hover background color to keep original color */
-    filter: brightness(1.1); /* Make it slightly brighter on hover instead */
+    filter: brightness(1.1);
     z-index: 1000;
 }
 
-/* Inner circle for the pin just to look nice */
 .custom-pin::after {
     content: '';
     width: 10px;
@@ -284,6 +241,3 @@ h1 {
     background: rgba(255,255,255,0.8);
     border-radius: 50%;
 }
-
-/* An arrow pointing out - could be implemented in JS as a separate layer, 
-   but for now the pin itself points to the location */
