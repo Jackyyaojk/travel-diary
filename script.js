@@ -1,5 +1,10 @@
 // Initialize map
-const map = L.map('map').setView([35, 105], 4);
+const regionRenderer = L.canvas({ padding: 0.5 });
+const map = L.map('map', {
+    preferCanvas: true,
+    wheelDebounceTime: 80,
+    wheelPxPerZoom: 100
+}).setView([35, 105], 4);
 
 map.createPane('regionsPane');
 map.getPane('regionsPane').style.zIndex = 350;
@@ -7,10 +12,17 @@ map.getPane('regionsPane').style.zIndex = 350;
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
-    maxZoom: 20
+    maxZoom: 20,
+    updateWhenZooming: false,
+    updateWhenIdle: true,
+    updateInterval: 200,
+    keepBuffer: 3
 }).addTo(map);
 
-let regionLayer = L.geoJSON(null, { pane: 'regionsPane' }).addTo(map);
+let regionLayer = L.geoJSON(null, {
+    pane: 'regionsPane',
+    renderer: regionRenderer
+}).addTo(map);
 
 const markerColors = [
     '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4',
@@ -99,6 +111,7 @@ function drawRegions(data, mode) {
 
     regionLayer = L.geoJSON(data, {
         pane: 'regionsPane',
+        renderer: regionRenderer,
         style: function(feature) {
             let isVisited = false;
             let visitedColor = '#FF9F43';
